@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpsPilot AI</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui;background:#111827;color:#e5e7eb}
+main{max-width:62rem;margin:8vh auto;padding:1.5rem}
+h1{font-size:clamp(2rem,7vw,4rem);margin:0;color:#86efac}
+input{padding:.65rem;margin:.5rem;border:1px solid #64748b;border-radius:.4rem}
+section{overflow:auto;border:1px solid #475569;border-radius:.7rem;margin-top:1rem}
+table{border-collapse:collapse;width:100%}
+td,th{padding:1rem;text-align:left;border-bottom:1px solid #475569}
+th{background:#1e293b}
+</style>
+<main><h1>OpsPilot AI</h1><h2>Cloud support ticket triage</h2>
+<p>Sample scenarios processed by the Python prototype.</p>
+<label>Filter results <input id="filter" type="search"></label>
+<p id="count" role="status"></p>
+<section aria-label="Demo results"><table><thead><tr><th scope="col">Id</th><th scope="col">Category</th><th scope="col">Priority</th><th scope="col">Recommendation</th><th scope="col">Estimated Minutes Saved</th></tr></thead><tbody><tr><td>T-100</td><td>security</td><td>P1</td><td>Escalate for human review; verify evidence before action</td><td>12</td></tr><tr><td>T-101</td><td>capacity</td><td>P3</td><td>Route to appropriate operations queue</td><td>12</td></tr><tr><td>T-102</td><td>billing</td><td>P3</td><td>Route to appropriate operations queue</td><td>12</td></tr></tbody></table></section>
+</main>
+<script>
+const filter = document.querySelector('#filter')
+const rows = Array.from(document.querySelectorAll('tbody tr'))
+const count = document.querySelector('#count')
+function update() {
+  const query = filter.value.trim().toLowerCase()
+  rows.forEach(row => { row.hidden = !row.textContent.toLowerCase().includes(query) })
+  count.textContent = rows.filter(row => !row.hidden).length + ' of ' + rows.length + ' results'
+}
+filter.addEventListener('input', update)
+update()
+</script>
+</html>
